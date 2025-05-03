@@ -1,9 +1,9 @@
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, recall_score, f1_score, precision_score
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-def print_classification_report(labels_preds_kfold):
+def print_classification_report(labels_preds_kfold, EMO_CLASSES):
     for idx, data in enumerate(labels_preds_kfold):
         print(f"K-Fold: {idx}")
         print(classification_report(data[0], data[1], target_names=EMO_CLASSES.keys()))
@@ -30,7 +30,7 @@ def plot_metrics(data_kfold):
     plt.show()
 
 # average classification report
-def average_classification_report(labels_preds_kfold):
+def average_classification_report(labels_preds_kfold, EMO_CLASSES):
     all_labels = []
     all_preds = []
     for data in labels_preds_kfold:
@@ -38,7 +38,7 @@ def average_classification_report(labels_preds_kfold):
         all_preds.extend(data[1])
     print(classification_report(all_labels, all_preds, target_names=EMO_CLASSES.keys()))
 
-def plot_confusion_matrix(labels_preds_kfold):
+def plot_confusion_matrix(labels_preds_kfold, EMO_CLASSES):
     all_labels = []
     all_preds = []
     for data in labels_preds_kfold:

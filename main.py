@@ -1,7 +1,7 @@
 from collections import Counter
 from sklearn.model_selection import StratifiedKFold
-from sklearn.model_selection import train_test_split, KFold
 
+from sklearn.metrics import accuracy_score, recall_score, f1_score, precision_score
 from utils import *
 from common import *
 from load_data import *
@@ -15,7 +15,7 @@ import numpy as np
 
 avarage = 'micro'
 
-data_folder = "../VNEMOS/"
+data_folder = "C:/Users/Admin/OneDrive/EmoPredict/EMOPRJ/VNEMOS/VNEMOS"
 
 mfccs, labels = load_data(data_folder)
 skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
@@ -149,9 +149,9 @@ for idx, (train_idx, test_idx) in enumerate(skf.split(mfccs, labels)):
     precision_kfold.append(best_precision)
     labels_preds_kfold.append(best_labels_preds)
 
-print_classification_report(labels_preds_kfold)
-average_classification_report(labels_preds_kfold)
-plot_confusion_matrix(labels_preds_kfold)
+print_classification_report(labels_preds_kfold, EMO_CLASSES)
+average_classification_report(labels_preds_kfold, EMO_CLASSES)
+plot_confusion_matrix(labels_preds_kfold, EMO_CLASSES)
 
 ua, wa = compute_ua_wa(labels_preds_kfold)
 print(f"Unweighted Accuracy: {ua}, Weighted Accuracy: {wa}")
